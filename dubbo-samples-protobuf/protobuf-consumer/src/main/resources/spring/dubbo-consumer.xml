@@ -26,5 +26,9 @@
     <dubbo:registry address="zookeeper://${zookeeper.address:127.0.0.1}:2181"/>
 
     <dubbo:reference id="demoService" check="false" interface="org.apache.dubbo.demo.DemoService"/>
+    <dubbo:reference id="healthService" check="false" interface="org.apache.dubbo.demo.HealthService" protocol="dubbo"/>
+
+    <dubbo:reference id="healthHttpApiService" interface="org.apache.dubbo.demo.provider.api.HealthHttpApiService" protocol="http"/>
+
 
 </beans>

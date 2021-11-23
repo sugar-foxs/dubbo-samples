@@ -20,16 +20,30 @@ import org.apache.dubbo.demo.DemoService;
 import org.apache.dubbo.demo.HelloReply;
 import org.apache.dubbo.demo.HelloRequest;
 
+import org.apache.dubbo.demo.HealthService;
+import org.apache.dubbo.demo.HealthReply;
+import org.apache.dubbo.demo.HealthRequest;
+
+import org.apache.dubbo.demo.provider.api.HealthHttpApiService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ConsumerApplication {
     public static void main(String[] args) throws Exception {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
         context.start();
-        DemoService demoService = context.getBean("demoService", DemoService.class);
-        HelloRequest request = HelloRequest.newBuilder().setName("Hello").build();
-        HelloReply reply = demoService.sayHello(request);
+//        DemoService demoService = context.getBean("demoService", DemoService.class);
+//        HelloRequest request = HelloRequest.newBuilder().setName("Hello").build();
+//        HelloReply reply = demoService.sayHello(request);
+
+        HealthService healthService = context.getBean("healthService", HealthService.class);
+        HealthRequest request = HealthRequest.newBuilder().setName("Health").build();
+        HealthReply reply = healthService.healthy(request);
         System.out.println("result: " + reply.getMessage());
+
+        HealthHttpApiService healthHttpApiService = (HealthHttpApiService) context.getBean("healthHttpApiService");
+        String result = healthHttpApiService.isHealthy("world");
+        System.out.println(result);
+
         System.in.read();
     }
 }

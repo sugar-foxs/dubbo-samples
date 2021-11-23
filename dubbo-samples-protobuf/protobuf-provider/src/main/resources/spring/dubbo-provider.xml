@@ -23,7 +23,7 @@
 
     <dubbo:application name="demo-provider"/>
 
-    <dubbo:provider token="true"/>
+<!--    <dubbo:provider token="true"/>-->
 
     <dubbo:registry address="zookeeper://${zookeeper.address:127.0.0.1}:2181"/>
 
@@ -31,7 +31,20 @@
 
     <bean id="demoServiceImpl" class="org.apache.dubbo.demo.provider.DemoServiceImpl"/>
 
+    <bean id="healthServiceImpl" class="org.apache.dubbo.demo.provider.HealthServiceImpl"/>
+
     <dubbo:service serialization="protobuf" interface="org.apache.dubbo.demo.DemoService"
                    ref="demoServiceImpl"/>
+
+    <dubbo:service serialization="protobuf" interface="org.apache.dubbo.demo.HealthService"
+                   ref="healthServiceImpl"/>
+
+    <dubbo:config-center address="zookeeper://127.0.0.1:2181"/>
+
+    <dubbo:protocol name="http" id="http" port="${servlet.port:8080}" server="${servlet.container:tomcat}"/>
+
+    <bean id="healthHttpApiService" class="org.apache.dubbo.demo.provider.impl.HealthHttpApiServiceImpl"/>
+
+    <dubbo:service interface="org.apache.dubbo.demo.provider.api.HealthHttpApiService" ref="healthHttpApiService" protocol="http"/>
 
 </beans>

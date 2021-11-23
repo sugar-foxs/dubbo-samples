@@ -29,8 +29,9 @@
         <target.level>1.8</target.level>
         <skip_maven_deploy>true</skip_maven_deploy>
         <dubbo.compiler.version>0.0.2</dubbo.compiler.version>
-        <dubbo.version>2.7.13</dubbo.version>
+        <dubbo.version>3.0.0</dubbo.version>
         <spring.version>4.3.16.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <modules>
@@ -60,9 +61,32 @@
                 <version>${dubbo.version}</version>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-dependencies-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.10.8</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.9.10</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.9.10</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
-
 
     <repositories>
         <repository>
